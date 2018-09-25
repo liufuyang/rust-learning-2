@@ -27,15 +27,15 @@ fn index() -> &'static str {
 }
 
 #[get("/count")]
-fn count(obj: State<SomeObj>) -> String {
+fn count(global_obj: State<SomeObj>) -> String {
     // let current_count = obj.count;
-    let current_count = obj.count.lock().unwrap();
+    let current_count = global_obj.count.lock().unwrap();
     format!("Number of visits: {}", current_count)
 }
 
 #[get("/add")]
-fn add(obj: State<SomeObj>) -> &'static str {
-    obj.add();
+fn add(global_obj: State<SomeObj>) -> &'static str {
+    global_obj.add();
     "Shared obj added 1"
 }
 
